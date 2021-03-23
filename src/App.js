@@ -15,6 +15,256 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './App.css';
 
+function calculateCollision(ball, rect) {
+  const ballLeft = ball.x - ball.width;
+  const ballRight = ball.x + ball.width;
+  const ballTop = ball.y - ball.height;
+  const ballBot = ball.y + ball.height;
+  const rectLeft = rect.x;
+  const rectRight = rect.x + rect.width;
+  const rectTop = rect.y;
+  const rectBot = rect.y + rect.height;
+  return (ballLeft < rectRight
+  && ballRight > rectLeft
+&& ballTop < rectBot
+&& ballBot > rectTop);
+}
+
+const formulas = [
+  {
+    label: ' --- Select a formula --- ',
+    render: () => (
+      <p />
+    ),
+  },
+  {
+    label: 'Left side of a circle',
+    render: (ballX, ballY, ballRadius) => (
+      <p>
+        <b> ball X - ball radius</b>
+        <br />
+        <b>
+          {' '}
+          {ballX}
+          {' '}
+          -
+          {' '}
+          {ballRadius}
+          {' '}
+          =
+          {' '}
+          {ballX - ballRadius}
+        </b>
+      </p>
+    ),
+  },
+  {
+    label: 'Right side of a circle',
+    render: (ballX, ballY, ballRadius) => (
+      <p>
+        <b> ball X + ball radius</b>
+        <br />
+        <b>
+          {' '}
+          {ballX}
+          {' '}
+          +
+          {' '}
+          {ballRadius}
+          {' '}
+          =
+          {' '}
+          {ballX + ballRadius}
+        </b>
+      </p>
+    ),
+  },
+  {
+    label: 'Top side of a circle',
+    render: (ballX, ballY, ballRadius) => (
+      <p>
+        <b> ball Y - ball radius</b>
+        <br />
+        <b>
+          {' '}
+          {ballY}
+          {' '}
+          -
+          {' '}
+          {ballRadius}
+          {' '}
+          =
+          {' '}
+          {ballY - ballRadius}
+        </b>
+      </p>
+    ),
+  },
+  {
+    label: 'Bottom side of a circle',
+    render: (ballX, ballY, ballRadius) => (
+      <p>
+        <b> ball Y + ball radius</b>
+        <br />
+        <b>
+          {' '}
+          {ballY}
+          {' '}
+          +
+          {' '}
+          {ballRadius}
+          {' '}
+          =
+          {' '}
+          {ballY + ballRadius}
+        </b>
+      </p>
+    ),
+  },
+  {
+    label: 'Right side of a rectangle',
+    render: (ballX, ballY, ballRadius, rectX, rectY, rectWidth) => (
+      <p>
+        <b> rect X + rect width</b>
+        <br />
+        <b>
+          {' '}
+          {rectX}
+          {' '}
+          +
+          {' '}
+          {rectWidth}
+          {' '}
+          =
+          {' '}
+          {rectX + rectWidth}
+        </b>
+      </p>
+    ),
+  },
+  {
+    label: 'Bottom side of a rectangle',
+    render: (ballX, ballY, ballRadius, rectX, rectY, rectWidth, rectHeight) => (
+      <p>
+        <b> rect Y + rect height</b>
+        <br />
+        <b>
+          {' '}
+          {rectY}
+          {' '}
+          +
+          {' '}
+          {rectHeight}
+          {' '}
+          =
+          {' '}
+          {rectY + rectHeight}
+        </b>
+      </p>
+    ),
+  },
+  {
+    label: 'Horizontal center of a rectangle',
+    render: (ballX, ballY, ballRadius, rectX, rectY, rectWidth) => (
+      <p>
+        <b> rect X + rect width / 2</b>
+        <br />
+        <b>
+          {' '}
+          {rectX}
+          {' '}
+          +
+          {' '}
+          {rectWidth / 2}
+          {' '}
+          =
+          {' '}
+          {rectX + rectWidth / 2}
+        </b>
+      </p>
+    ),
+  },
+  {
+    label: 'Vertical center of a rectangle',
+    render: (ballX, ballY, ballRadius, rectX, rectY, rectWidth, rectHeight) => (
+      <p>
+        <b> rect Y + rect height / 2</b>
+        <br />
+        <b>
+          {' '}
+          {rectY}
+          {' '}
+          +
+          {' '}
+          {rectHeight / 2}
+          {' '}
+          =
+          {' '}
+          {rectY + rectHeight / 2}
+        </b>
+      </p>
+    ),
+  },
+  {
+    label: 'Collision between two rectangles',
+    render: (ballX, ballY, ballRadius, rectX, rectY, rectWidth, rectHeight) => (
+      <p>
+        (the circle is treated as a rectangle)
+        <br />
+        <b>
+          {'circleLeftSide < rectRightSide'}
+          <br />
+          {' && circleRightSide > rectLeftSide'}
+          <br />
+          {' && circleTopSide < rectBottomSide'}
+          <br />
+          {' && circleBottomSide > rectTopSide'}
+        </b>
+        <br />
+        <b>
+          {ballX - ballRadius}
+          {' '}
+          &#60;
+          {' '}
+          {rectX + rectWidth}
+          <br />
+          {' && '}
+          {ballX + ballRadius}
+          {' '}
+          &#62;
+          {' '}
+          {rectX}
+          <br />
+          {' && '}
+          {ballY - ballRadius}
+          {' '}
+          &#60;
+          {' '}
+          {rectY + rectHeight}
+          <br />
+          {' && '}
+          {ballY + ballRadius}
+          {' '}
+          &#62;
+          {' '}
+          {rectY}
+          <br />
+        </b>
+        {' '}
+        =
+        {' '}
+        <b>
+          {calculateCollision({
+            x: ballX, y: ballY, width: ballRadius, height: ballRadius,
+          }, {
+            x: rectX, y: rectY, width: rectWidth, height: rectHeight,
+          }).toString()}
+        </b>
+      </p>
+    ),
+  },
+];
+
 function NumberField(props) {
   const {
     label,
@@ -44,13 +294,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      french: false,
+      formula: 0,
     };
-  }
-
-  componentDidMount() {
-    const language = navigator.language || navigator.userLanguage;
-    this.setState({ french: language === 'fr' });
   }
 
   getProps(changes) {
@@ -62,7 +307,7 @@ export default class App extends React.Component {
 
   render() {
     const {
-      french,
+      formula,
     } = this.state;
     const {
       ballX,
@@ -76,44 +321,12 @@ export default class App extends React.Component {
     } = this.props;
     return (
       <div id="app">
-        <Navbar bg="light" expand="lg">
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Navbar.Brand>
-              <Button
-                id="langBtn"
-                variant={french ? 'warning' : 'light'}
-                onClick={() => {
-                  this.setState({
-                    french: true,
-                  });
-                }}
-              >
-                <Image src="./frFlag.png" fluid />
-              </Button>
-            </Navbar.Brand>
-            <Navbar.Brand>
-              <Button
-                id="langBtn"
-                variant={!french ? 'warning' : 'light'}
-                onClick={() => {
-                  this.setState({
-                    french: false,
-                  });
-                }}
-              >
-                <Image src="./brFlag.png" fluid />
-              </Button>
-            </Navbar.Brand>
-            <Nav.Link href="#">Learn more</Nav.Link>
-          </Navbar.Collapse>
-        </Navbar>
         <div id="header">
           <h1>Canvas laboratory</h1>
         </div>
         <div id="gamePanel">
           <Container fluid>
-            <Row id="initRow">
+            <Row id="inputsRow">
               <Col>
                 <Form
                   onSubmit={(e) => {
@@ -193,51 +406,28 @@ export default class App extends React.Component {
             </Row>
             <Row>
               <Col>
+                <Form.Label>Formulas</Form.Label>
+                <Form.Control
+                  as="select"
+                  value={formulas[formula].label}
+                  onChange={(e) => {
+                    this.setState({ formula: e.target.selectedIndex });
+                  }}
+                >
+                  {
+                    formulas.map((elt) => <option>{elt.label}</option>)
+                  }
+                </Form.Control>
                 <Jumbotron class="jumbotron">
-                  <p>
-                    Left side of a circle :
-                    <b> ball X - ball radius = </b>
-                    {ballX - ballRadius}
-                  </p>
-                  <p>
-                    Right side of a circle :
-                    <b> ball X + ball radius = </b>
-                    {ballX + ballRadius}
-                  </p>
-                  <p>
-                    Top side of a circle :
-                    <b> ball Y - ball radius = </b>
-                    {ballY - ballRadius}
-                  </p>
-                  <p>
-                    Bottom side of a circle :
-                    <b> ball Y + ball radius = </b>
-                    {ballY + ballRadius}
-                  </p>
-                </Jumbotron>
-              </Col>
-              <Col>
-                <Jumbotron class="jumbotron">
-                  <p>
-                    Right side of a rectangle :
-                    <b> rect X + rect width = </b>
-                    {rectX + rectWidth}
-                  </p>
-                  <p>
-                    Bottom side of a rectangle :
-                    <b> rect Y + rect height = </b>
-                    {rectY + rectHeight}
-                  </p>
-                  <p>
-                    Horizontal center of a rectangle :
-                    <b> rect X + rect width / 2 = </b>
-                    {rectX + rectWidth / 2}
-                  </p>
-                  <p>
-                    Vertical center of a rectangle :
-                    <b> rect Y + rect height / 2 = </b>
-                    {rectY + rectHeight / 2}
-                  </p>
+                  {formulas[formula].render(
+                    ballX,
+                    ballY,
+                    ballRadius,
+                    rectX,
+                    rectY,
+                    rectWidth,
+                    rectHeight,
+                  )}
                 </Jumbotron>
               </Col>
             </Row>

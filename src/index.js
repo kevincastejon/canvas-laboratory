@@ -62,12 +62,10 @@ function render() {
           circle.y = props.ballY;
           circle.width = props.ballRadius;
           circle.height = props.ballRadius;
-          circle.color = props.ballColor;
           rect.x = props.rectX;
           rect.y = props.rectY;
           rect.width = props.rectWidth;
           rect.height = props.rectHeight;
-          rect.color = props.rectColor;
           render();
         }}
       />
