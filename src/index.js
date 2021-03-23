@@ -32,8 +32,8 @@ const COMMON_COLORS = {
   COLLIDED: '#673ab7',
 };
 
-const rect = new DisplayObject(200, 500, 400, 100, '#c32b20', SHAPES.RECT);
-const circle = new DisplayObject(400, 450, 20, 20, '#4caf50', SHAPES.CIRCLE);
+const rect = new DisplayObject(200, 300, 400, 100, '#c32b20', SHAPES.RECT);
+const circle = new DisplayObject(400, 250, 20, 20, '#4caf50', SHAPES.CIRCLE);
 
 const displayObjects = [
   rect,
@@ -179,13 +179,13 @@ window.addEventListener('keyup', (e) => {
 
 function clear() {
   ctx.globalAlpha = 1;
-  ctx.clearRect(0, 0, 800, 600);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawBkg() {
   ctx.globalAlpha = 1;
   ctx.fillStyle = COMMON_COLORS.BKG;
-  ctx.fillRect(0, 0, 800, 600);
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawLine(fromX, fromY, toX, toY, alpha) {

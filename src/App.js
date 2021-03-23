@@ -41,7 +41,7 @@ const formulas = [
     label: 'Left side of a circle',
     render: (ballX, ballY, ballRadius) => (
       <p>
-        <b> ball X - ball radius</b>
+        <b> circle X - circle radius</b>
         <br />
         <b>
           {' '}
@@ -62,7 +62,7 @@ const formulas = [
     label: 'Right side of a circle',
     render: (ballX, ballY, ballRadius) => (
       <p>
-        <b> ball X + ball radius</b>
+        <b> circle X + circle radius</b>
         <br />
         <b>
           {' '}
@@ -83,7 +83,7 @@ const formulas = [
     label: 'Top side of a circle',
     render: (ballX, ballY, ballRadius) => (
       <p>
-        <b> ball Y - ball radius</b>
+        <b> circle Y - circle radius</b>
         <br />
         <b>
           {' '}
@@ -104,7 +104,7 @@ const formulas = [
     label: 'Bottom side of a circle',
     render: (ballX, ballY, ballRadius) => (
       <p>
-        <b> ball Y + ball radius</b>
+        <b> circle Y + circle radius</b>
         <br />
         <b>
           {' '}
@@ -227,28 +227,24 @@ const formulas = [
           &#60;
           {' '}
           {rectX + rectWidth}
-          <br />
           {' && '}
           {ballX + ballRadius}
           {' '}
           &#62;
           {' '}
           {rectX}
-          <br />
           {' && '}
           {ballY - ballRadius}
           {' '}
           &#60;
           {' '}
           {rectY + rectHeight}
-          <br />
           {' && '}
           {ballY + ballRadius}
           {' '}
           &#62;
           {' '}
           {rectY}
-          <br />
         </b>
         {' '}
         =
@@ -336,7 +332,7 @@ export default class App extends React.Component {
                   <Form.Group>
                     <NumberField
                       label="Circle X"
-                      ariaLabel="ball horizontal position"
+                      ariaLabel="circle horizontal position"
                       onChange={(e) => {
                         updateProps(this.getProps({ ballX: parseInt(e.target.value, 10) }));
                       }}
@@ -344,7 +340,7 @@ export default class App extends React.Component {
                     />
                     <NumberField
                       label="Circle Y"
-                      ariaLabel="ball vertical position"
+                      ariaLabel="circle vertical position"
                       onChange={(e) => {
                         updateProps(this.getProps({ ballY: parseInt(e.target.value, 10) }));
                       }}
@@ -352,7 +348,7 @@ export default class App extends React.Component {
                     />
                     <NumberField
                       label="Circle radius"
-                      ariaLabel="ball radius"
+                      ariaLabel="circle radius"
                       onChange={(e) => {
                         updateProps(this.getProps({ ballRadius: parseInt(e.target.value, 10) }));
                       }}
