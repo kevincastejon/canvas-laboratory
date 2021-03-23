@@ -335,7 +335,7 @@ export default class App extends React.Component {
                 >
                   <Form.Group>
                     <NumberField
-                      label="Ball X"
+                      label="Circle X"
                       ariaLabel="ball horizontal position"
                       onChange={(e) => {
                         updateProps(this.getProps({ ballX: parseInt(e.target.value, 10) }));
@@ -343,7 +343,7 @@ export default class App extends React.Component {
                       number={ballX}
                     />
                     <NumberField
-                      label="Ball Y"
+                      label="Circle Y"
                       ariaLabel="ball vertical position"
                       onChange={(e) => {
                         updateProps(this.getProps({ ballY: parseInt(e.target.value, 10) }));
@@ -351,7 +351,7 @@ export default class App extends React.Component {
                       number={ballY}
                     />
                     <NumberField
-                      label="Ball radius"
+                      label="Circle radius"
                       ariaLabel="ball radius"
                       onChange={(e) => {
                         updateProps(this.getProps({ ballRadius: parseInt(e.target.value, 10) }));
