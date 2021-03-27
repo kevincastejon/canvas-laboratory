@@ -1,11 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-// import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-// import Popover from 'react-bootstrap/Popover';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Image from 'react-bootstrap/Image';
 import PropTypes from 'prop-types';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
